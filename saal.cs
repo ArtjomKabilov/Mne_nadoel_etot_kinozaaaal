@@ -72,6 +72,7 @@ namespace MyVorm
 
                 }
             }
+
             //btn_w = (int)(100 / kohad);
             //btn_h = (int)(100 / read);
             this.tlp.Dock = DockStyle.Fill;
@@ -91,7 +92,7 @@ namespace MyVorm
                 read_kohad = f.ReadToEnd().Split(';');
                 f.Close();*/
                 connect_to_DB.Open();
-                adapter = new SqlDataAdapter("SELECT * FROM [dbo].[Piletid]", connect_to_DB);
+                adapter = new SqlDataAdapter($"SELECT * FROM [dbo].[Piletid] WHERE film='{cinema.FilmName[cinema.index]}'", connect_to_DB);
                 DataTable tabel = new DataTable();
                 adapter.Fill(tabel);
                 read_kohad = new string[tabel.Rows.Count];
@@ -124,11 +125,11 @@ namespace MyVorm
                 string text = "Kinoteatr: „Planet“\n ";
                 foreach (var item in piletid)
                 {
-                    text += "Film:"+ cinema.FilmName +"\n " + "Rida: " + item.Rida + "Koht: " + item.Koht + "\n";
+                    text += "Film:"+ cinema.FilmName[cinema.index] + "\n " + "Rida: " + item.Rida + "Koht: " + item.Koht + "\n";
                     command = new SqlCommand("INSERT INTO Piletid(rida,koht,film) VALUES(@rida,@koht,@film)", connect_to_DB);
                     command.Parameters.AddWithValue("@rida", item.Rida);
                     command.Parameters.AddWithValue("@koht", item.Koht);
-                    command.Parameters.AddWithValue("@film", cinema.FilmName);
+                    command.Parameters.AddWithValue("@film", cinema.FilmName[cinema.index]);
                     command.ExecuteNonQuery();
                 }
                 connect_to_DB.Close();

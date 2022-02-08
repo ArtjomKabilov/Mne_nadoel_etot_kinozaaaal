@@ -73,28 +73,7 @@ namespace MyVorm
             message.Text = body;
             this.Controls.Add(message);
         }
-        /*public room(int x, int y)
-        {
-            _x = x;
-            _y = y;
-            using (StreamWriter w = new StreamWriter("../../info.txt", true)) 
-            {
-                w.Write(""); 
-            }
-            using (StreamReader r = new StreamReader("../../info.txt"))
-            {
-                int counter = 0;
-                string[] tickets = r.ReadToEnd().Split(',');
-                bought = "";
 
-                foreach (var item in tickets)
-                {
-                    bought += tickets;
-                    counter++;
-                }
-            }
-
-        }*/
 
         private void Room_Click1(object sender, EventArgs e)
         {

@@ -20,14 +20,14 @@ namespace MyVorm
         DataGridView dataGridView;
         DataTable tabel;
         string[] Filmid;
+        public static string[] FilmName;
         int Id;
-        int index;
+        public static int index;
         List<PictureBox> kavaBoxList;
         public static int m = 1;
-        public List<string> FilmName;
-        Button btn_scroll_back;
-        Button btn_scroll_next;
-        Button choose;
+        //Button btn_scroll_back;
+        //Button btn_scroll_next;
+        //Button choose;
         Button btn, btn2;
         public PictureBox picture;
         Button select;
@@ -42,12 +42,16 @@ namespace MyVorm
             dataGridView.DataSource = tabel;
 
             Filmid = new string[tabel.Rows.Count];
-            var index = 0;
+            FilmName = new string[tabel.Rows.Count];
+            var index= 0;
             
             foreach (DataRow row in tabel.Rows)
             {
                 var film = row["image"];
-                Filmid[index++] = $"{film}";
+                var name = row["name"];
+
+                Filmid[index] = $"{film}";
+                FilmName[index++] = $"{name}";
 
             }
             connect_to_DB.Close();
@@ -64,6 +68,8 @@ namespace MyVorm
 
             };
             index = 0;
+            
+
             picture = new PictureBox
             {
                 Image = kavaBoxList[index].Image,
@@ -149,7 +155,7 @@ namespace MyVorm
             
             select.Hide();
 
-            this.Controls.Add(choose);
+            //this.Controls.Add(choose);
             this.Controls.Add(select);
             //this.Controls.Add(btn_scroll_back);
             //this.Controls.Add(btn_scroll_next);
@@ -157,7 +163,7 @@ namespace MyVorm
 
         private void Btn2_MouseClick(object sender, MouseEventArgs e)
         {
-            room saal = new room("Valige koht", "", "", "Keskmine", "");
+            room saal = new room("Valige koht", "", "Väike", "Keskmine", "Suur");
             saal.StartPosition = FormStartPosition.CenterScreen;
             saal.ShowDialog();
         }
